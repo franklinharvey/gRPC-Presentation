@@ -6,8 +6,22 @@ build-lists: true
 ## Frank Harvey
 
 ---
+# What is gRPC
 
-# Boring Benefits
+gRPC is an API protocol designed by Google for microservice API's
+
+gRPC uses the Protocol Buffers (aka Protobufs) over HTTP/2, and is based on RPC semantics, and is therefore not REST.
+
+---
+# REST Benefits
+
+- Predictability
+	- if I know of a `User` model, I can assume there will be a `POST /user`, `GET user/`, etc.
+- Near-infinite resources
+
+---
+
+# gRPC Benefits
 
 - Highly performant
 	- leverages http/2 (lets be honest google probably designed http/2 with Stubby/gRPC in mind)
@@ -20,7 +34,7 @@ build-lists: true
 
 ---
 
-# The cool benefits
+# The best benefits
 ## Code Generation
 - server side is lit
 - client side is lit
@@ -29,7 +43,7 @@ build-lists: true
 --- 
 
 # IDE Integration you say?
-#### A plain HTTP Get
+#### A plain HTTP Get in JS
 
 ```typescript
 https.get(`${chatHost}/users/get`, res => {
@@ -43,16 +57,15 @@ https.get(`${chatHost}/users/get`, res => {
 });
 ```
 
-###### Ugh, no types
-
+###### Not typed, no way of knowing payload beyond your assumptions
 --- 
 
 # IDE Integration you say?
-#### A Gloo-flavored inter-service HTTP Get
+#### A Gloo-flavored inter-service HTTP Get with TS
 
 ```typescript
 const response = await this.httpService
-      .get<Organization>(`${this.organizationHost}/organizations/${orgId}`, {
+      .get<IOrganization>(`${this.organizationHost}/organizations/${orgId}`, {
         headers: {
           Authorization: authorizationHeader,
         },
@@ -61,6 +74,7 @@ const response = await this.httpService
 ```
 
 ###### The function is type cast, but *could* be wrong, the DTO could be *anything*
+###### Its up to you to make sure `IOrganization` is up to date
 
 --- 
 
@@ -86,9 +100,6 @@ function getUserById(id: string): Promise<User> {
 ###### This *cannot* return anything that isn't a User entity, because protobufs
 
 --- 
-# Well ok fine but even that's a lot of boilerplate
-
----
 # Take a look at Nest's gRPC example
 
 
