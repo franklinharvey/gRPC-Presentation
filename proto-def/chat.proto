@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package chat;
+
+message Void {
+
+}
+
+message User {
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+}
+
+message UserList {
+  repeated User users = 1;
+}
+
+message CreateUserRequest {
+  string name = 1;
+  string email = 2;
+}
+
+message GetUserRequest {
+  string id = 1;
+}
+
+message UpdateUserRequest {
+  // note: no optionals
+  string name = 1;
+  string email = 2;
+}
+
+message DeleteUserRequest {
+  string id = 1;
+}
+
+message Message {
+  string title = 1;
+  string body = 2;
+}
+
+message SendMessage {
+  string user_id = 1;
+  Message message = 2;
+}
+
+service Chat {
+  rpc CreateUser(CreateUserRequest) returns (Void) {};
+  rpc GetUser(GetUserRequest) returns (User) {};
+  rpc GetAllUsers(Void) returns (UserList) {};
+  rpc UpdateUser(UpdateUserRequest) returns (Void) {};
+  rpc DeleteUser(DeleteUserRequest) returns (Void) {};
+  
+  rpc MessageUser(SendMessage) returns (Void) {};
+  rpc SubscribeUserMessages(GetUserRequest) returns (stream Message) {};
+}

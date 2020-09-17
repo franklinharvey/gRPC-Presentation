@@ -1,0 +1,13 @@
+{
+  "name": "gRPC-Presentation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Franklin Harvey <fharvey@gloo.us>",
+  "license": "MIT",
+  "dependencies": {
+    "grpc": "^1.24.3",
+    "grpc-tools": "^1.9.1",
+    "grpc_tools_node_protoc_ts": "^4.1.4",
+    "rxjs": "^6.6.3"
+  }
+}
