@@ -2,9 +2,18 @@ syntax = "proto3";
 
 package chat;
 
-message Void {
-
+service Chat {
+  rpc CreateUser(CreateUserRequest) returns (Void) {};
+  rpc GetUser(GetUserRequest) returns (User) {};
+  rpc GetAllUsers(Void) returns (UserList) {};
+  rpc UpdateUser(UpdateUserRequest) returns (Void) {};
+  rpc DeleteUser(DeleteUserRequest) returns (Void) {};
+  
+  rpc MessageUser(SendMessage) returns (Void) {};
+  rpc SubscribeUserMessages(GetUserRequest) returns (stream Message) {};
 }
+
+message Void {}
 
 message User {
   int32 id = 1;
@@ -43,15 +52,4 @@ message Message {
 message SendMessage {
   string user_id = 1;
   Message message = 2;
-}
-
-service Chat {
-  rpc CreateUser(CreateUserRequest) returns (Void) {};
-  rpc GetUser(GetUserRequest) returns (User) {};
-  rpc GetAllUsers(Void) returns (UserList) {};
-  rpc UpdateUser(UpdateUserRequest) returns (Void) {};
-  rpc DeleteUser(DeleteUserRequest) returns (Void) {};
-  
-  rpc MessageUser(SendMessage) returns (Void) {};
-  rpc SubscribeUserMessages(GetUserRequest) returns (stream Message) {};
 }

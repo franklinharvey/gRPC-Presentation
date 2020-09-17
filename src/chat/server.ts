@@ -22,8 +22,14 @@ export default class ChatServer implements IChatServer {
     call: grpc.ServerUnaryCall<GetUserRequest>,
     callback: grpc.sendUnaryData<User>
   ) => {
-    const user: User = this.db.get(call.request.getId());
-    callback(null, user);
+    const user: any = this.db.get(call.request.getId());
+
+    const response = new User();
+    response.setName(user.name);
+    response.setEmail(user.email);
+    response.setId(user.id);
+
+    callback(null, response);
   };
 
   getAllUsers = () => {};
